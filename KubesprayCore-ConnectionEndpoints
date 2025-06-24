@@ -1,0 +1,60 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "EndpointCreation",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateVpcEndpoint",
+                "ec2:CreateInstanceConnectEndpoint",
+                "ec2:DescribeVpcEndpoints",
+                "ec2:DescribeVpcEndpointServices",
+                "ec2:DescribeInstanceConnectEndpoints"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "EndpointModification",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:ModifyVpcEndpoint"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "InstanceConnectAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ec2-instance-connect:SendSSHPublicKey",
+                "ec2-instance-connect:OpenTunnel"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "SSMSessionAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:DescribeInstanceInformation",
+                "ssm:StartSession",
+                "ssm:TerminateSession",
+                "ssm:ResumeSession",
+                "ssm:DescribeSessions",
+                "ssm:GetConnectionStatus",
+                "ssm:SendCommand",
+                "ssm:GetParameter",
+                "ssm:GetParameters",
+                "ssm:PutParameter"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
