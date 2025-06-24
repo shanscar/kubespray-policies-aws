@@ -1,0 +1,27 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ServiceLinkedRoleCreation",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "autoscaling.amazonaws.com",
+                        "elasticloadbalancing.amazonaws.com",
+                        "application-autoscaling.amazonaws.com",
+                        "vpce.amazonaws.com",
+                        "ec2.amazonaws.com",
+                        "ec2-instance-connect.amazonaws.com",
+                        "ssm.amazonaws.com",
+                        "ebs.amazonaws.com"
+                    ]
+                }
+            }
+        }
+    ]
+}
