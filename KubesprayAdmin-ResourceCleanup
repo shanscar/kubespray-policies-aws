@@ -1,0 +1,71 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "EC2ResourceDeletion",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DeleteVolume",
+                "ec2:DeleteSnapshot",
+                "ec2:DeleteKeyPair",
+                "ec2:DeleteTags"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ]
+                },
+                "StringEquals": {
+                    "ec2:ResourceTag/ManagedBy": "terraform"
+                }
+            }
+        },
+        {
+            "Sid": "NetworkingDeletion",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DeleteVpc",
+                "ec2:DeleteSubnet",
+                "ec2:DeleteRouteTable",
+                "ec2:DeleteRoute",
+                "ec2:DeleteInternetGateway",
+                "ec2:DeleteSecurityGroup"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ]
+                },
+                "StringEquals": {
+                    "ec2:ResourceTag/ManagedBy": "terraform"
+                }
+            }
+        },
+        {
+            "Sid": "EndpointDeletion",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DeleteVpcEndpoints",
+                "ec2:DeleteInstanceConnectEndpoint"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ]
+                }
+            }
+        }
+    ]
+}
