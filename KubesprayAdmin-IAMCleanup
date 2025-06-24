@@ -1,0 +1,71 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "IAMRoleDeletionByName",
+            "Effect": "Allow",
+            "Action": [
+                "iam:DeleteRole",
+                "iam:UpdateRole",
+                "iam:DeleteRolePolicy",
+                "iam:DeleteInstanceProfile",
+                "iam:UntagRole",
+                "iam:UntagInstanceProfile"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:role/kubespray-*",
+                "arn:aws:iam::*:role/k8s-*",
+                "arn:aws:iam::*:role/kubernetes-*",
+                "arn:aws:iam::*:instance-profile/kubespray-*",
+                "arn:aws:iam::*:instance-profile/k8s-*",
+                "arn:aws:iam::*:instance-profile/kubernetes-*"
+            ]
+        },
+        {
+            "Sid": "IAMRoleDeletionByTag",
+            "Effect": "Allow",
+            "Action": [
+                "iam:DeleteRole",
+                "iam:DeleteInstanceProfile"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "iam:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ]
+                },
+                "StringEquals": {
+                    "iam:ResourceTag/ManagedBy": "terraform"
+                },
+                "Bool": {
+                    "aws:MultiFactorAuthPresent": "true"
+                }
+            }
+        },
+        {
+            "Sid": "ServiceLinkedRoleDeletion",
+            "Effect": "Allow",
+            "Action": [
+                "iam:DeleteServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "autoscaling.amazonaws.com",
+                        "elasticloadbalancing.amazonaws.com",
+                        "application-autoscaling.amazonaws.com",
+                        "vpce.amazonaws.com",
+                        "ec2.amazonaws.com",
+                        "ec2-instance-connect.amazonaws.com",
+                        "ssm.amazonaws.com",
+                        "ebs.amazonaws.com"
+                    ]
+                }
+            }
+        }
+    ]
+}
