@@ -1,0 +1,56 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "EmergencyInstanceTermination",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:TerminateInstances"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ],
+                    "ec2:ResourceTag/Environment": [
+                        "dev*",
+                        "test*",
+                        "staging*"
+                    ]
+                },
+                "Bool": {
+                    "aws:MultiFactorAuthPresent": "true"
+                },
+                "DateGreaterThan": {
+                    "aws:CurrentTime": "2024-01-01T00:00:00Z"
+                }
+            }
+        },
+        {
+            "Sid": "ExtendedServiceLinkedRoles",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceLinkedRole",
+                "iam:DeleteServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "spot.amazonaws.com",
+                        "backup.amazonaws.com",
+                        "efs.amazonaws.com",
+                        "fsx.amazonaws.com",
+                        "transitgateway.amazonaws.com"
+                    ]
+                },
+                "Bool": {
+                    "aws:MultiFactorAuthPresent": "true"
+                }
+            }
+        }
+    ]
+}
