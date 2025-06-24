@@ -1,0 +1,51 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LoadBalancingCreation",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:CreateLoadBalancer",
+                "elasticloadbalancing:CreateTargetGroup",
+                "elasticloadbalancing:CreateListener",
+                "elasticloadbalancing:AddTags"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "LoadBalancingModification",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:ModifyLoadBalancerAttributes",
+                "elasticloadbalancing:ModifyTargetGroup",
+                "elasticloadbalancing:RegisterTargets",
+                "elasticloadbalancing:DeregisterTargets",
+                "elasticloadbalancing:ModifyListener",
+                "elasticloadbalancing:Describe*"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "elasticloadbalancing:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "AutoScalingOperations",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:CreateAutoScalingGroup",
+                "autoscaling:UpdateAutoScalingGroup",
+                "autoscaling:CreateLaunchConfiguration",
+                "autoscaling:Describe*",
+                "application-autoscaling:RegisterScalableTarget",
+                "application-autoscaling:Describe*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
