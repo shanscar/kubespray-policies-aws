@@ -684,10 +684,6 @@ We welcome contributions! Please follow these guidelines:
 - ✅ **Network Controls**: VPC endpoint usage where applicable
 - ✅ **Audit Trail**: CloudTrail integration for all actions
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Support
 
 For questions, issues, or contributions:
