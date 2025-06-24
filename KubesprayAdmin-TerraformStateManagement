@@ -1,0 +1,56 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "TerraformStateAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:ListBucket",
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:GetObjectVersion"
+            ],
+            "Resource": [
+                "arn:aws:s3:::*terraform-state*",
+                "arn:aws:s3:::*terraform-state*/*",
+                "arn:aws:s3:::*kubespray-state*",
+                "arn:aws:s3:::*kubespray-state*/*"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "s3:ExistingObjectTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "TerraformStateLocking",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:GetItem",
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:*:*:table/*terraform*",
+                "arn:aws:dynamodb:*:*:table/*kubespray*",
+                "arn:aws:dynamodb:*:*:table/*lock*"
+            ],
+            "Condition": {
+                "ForAnyValue:StringLike": {
+                    "dynamodb:LeadingKeys": [
+                        "kubespray/*",
+                        "k8s/*",
+                        "kubernetes/*"
+                    ]
+                }
+            }
+        }
+    ]
+}
