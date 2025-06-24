@@ -707,4 +707,8 @@ For questions, issues, or contributions:
 
 **📋 Policy Matrix:** For a complete mapping of AWS services and actions covered by each policy, see the [Policy Matrix](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html).
 
+**🔧 Policy Simulator** For comprehensive testing and validation of these Kubespray policies, use the [IAM Policy Simulator](https://policysim.aws.amazon.com/home/index.jsp).
+
+🔗 Policy Simulator URL: https://policysim.aws.amazon.com/home/index.jsp
+
 **🚀 Quick Start:** For rapid deployment, check out our [Quick Start Guide](#installation--usage).
