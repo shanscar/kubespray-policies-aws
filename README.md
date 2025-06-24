@@ -705,6 +705,6 @@ For questions, issues, or contributions:
 
 **⚠️ Important Security Notice:** Please review and test these policies thoroughly in your environment before production use. Adjust conditional restrictions according to your specific security requirements and compliance needs.
 
-**📋 Policy Matrix:** For a complete mapping of AWS services and actions covered by each policy, see the [Policy Matrix](docs/policy-matrix.md).
+**📋 Policy Matrix:** For a complete mapping of AWS services and actions covered by each policy, see the [Policy Matrix](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html).
 
-**🚀 Quick Start:** For rapid deployment, check out our [Quick Start Guide](docs/quick-start.md).
+**🚀 Quick Start:** For rapid deployment, check out our [Quick Start Guide](#installation--usage).
