@@ -1,0 +1,47 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LoadBalancerDeletion",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "elasticloadbalancing:DeleteTargetGroup",
+                "elasticloadbalancing:DeleteListener",
+                "elasticloadbalancing:DeleteRule",
+                "elasticloadbalancing:RemoveTags"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "elasticloadbalancing:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ],
+                    "elasticloadbalancing:ResourceTag/kubernetes.io/cluster/*": "*"
+                }
+            }
+        },
+        {
+            "Sid": "AutoScalingDeletion",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:DeleteLaunchConfiguration",
+                "application-autoscaling:DeregisterScalableTarget"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "autoscaling:ResourceTag/Project": [
+                        "kubespray*",
+                        "k8s*",
+                        "kubernetes*"
+                    ],
+                    "autoscaling:ResourceTag/kubernetes.io/cluster/*": "*"
+                }
+            }
+        }
+    ]
+}
