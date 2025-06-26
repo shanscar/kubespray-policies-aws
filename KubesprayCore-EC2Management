@@ -2,10 +2,30 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "EC2InstanceManagement",
+            "Sid": "EC2GlobalDescribeOperations",
             "Effect": "Allow",
             "Action": [
-                "ec2:Describe*",
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeInstanceTypes",
+                "ec2:DescribeImages",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeSnapshots",
+                "ec2:DescribeRegions",
+                "ec2:DescribeAvailabilityZones",
+                "ec2:DescribeTags",
+                "ec2:DescribeAccountAttributes"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "EC2InstanceManagementWithTags",
+            "Effect": "Allow",
+            "Action": [
                 "ec2:RunInstances",
                 "ec2:StartInstances",
                 "ec2:StopInstances",
@@ -14,8 +34,7 @@
                 "ec2:ModifyInstanceAttribute",
                 "ec2:AssociateIamInstanceProfile",
                 "ec2:DisassociateIamInstanceProfile",
-                "ec2:ReplaceIamInstanceProfileAssociation",
-                "ec2:CreateTags"
+                "ec2:ReplaceIamInstanceProfileAssociation"
             ],
             "Resource": "*",
             "Condition": {
@@ -29,7 +48,7 @@
             }
         },
         {
-            "Sid": "EC2ResourceCreation",
+            "Sid": "EC2ResourceCreationAndTagging",
             "Effect": "Allow",
             "Action": [
                 "ec2:CreateVolume",
@@ -38,9 +57,26 @@
                 "ec2:CreateSnapshot",
                 "ec2:CreateKeyPair",
                 "ec2:ImportKeyPair",
-                "ec2:CreateTags"
+                "ec2:CreateTags",
+                "ec2:DeleteTags"
             ],
             "Resource": "*"
+        },
+        {
+            "Sid": "EC2RunInstancesUnrestricted",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RunInstances"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:*:instance/*",
+                "arn:aws:ec2:*:*:volume/*",
+                "arn:aws:ec2:*:*:network-interface/*",
+                "arn:aws:ec2:*:*:subnet/*",
+                "arn:aws:ec2:*:*:security-group/*",
+                "arn:aws:ec2:*:*:key-pair/*",
+                "arn:aws:ec2:*:*:image/*"
+            ]
         }
     ]
 }
