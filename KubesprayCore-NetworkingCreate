@@ -1,44 +1,45 @@
 {
-	"Version": "2012-10-17",
-	"Statement": [
-		{
-			"Sid": "NetworkResourceCreation",
-			"Effect": "Allow",
-			"Action": [
-				"ec2:CreateVpc",
-				"ec2:CreateSubnet",
-				"ec2:CreateRouteTable",
-				"ec2:CreateRoute",
-				"ec2:CreateInternetGateway",
-				"ec2:CreateSecurityGroup"
-			],
-			"Resource": "*"
-		},
-		{
-			"Sid": "NetworkResourceModification",
-			"Effect": "Allow",
-			"Action": [
-				"ec2:ModifyVpcAttribute",
-				"ec2:ModifySubnetAttribute",
-				"ec2:ReplaceRoute",
-				"ec2:AssociateRouteTable",
-				"ec2:DisassociateRouteTable",
-				"ec2:AttachInternetGateway",
-				"ec2:DetachInternetGateway",
-				"ec2:AuthorizeSecurityGroupIngress",
-				"ec2:AuthorizeSecurityGroupEgress",
-				"ec2:RevokeSecurityGroupIngress",
-				"ec2:RevokeSecurityGroupEgress"
-			],
-			"Resource": "*",
-			"Condition": {
-				"StringLike": {
-					"ec2:ResourceTag/Name": "rthk-k8s*"
-				}
-			}
-		},
-		{
-    		"Sid": "VPCEndpointManagement",
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "NetworkResourceCreation",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateVpc",
+                "ec2:CreateSubnet",
+                "ec2:CreateRouteTable",
+                "ec2:CreateRoute",
+                "ec2:CreateInternetGateway",
+                "ec2:CreateSecurityGroup",
+                "ec2:CreateNetworkInterface"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "NetworkResourceModification",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:ModifyVpcAttribute",
+                "ec2:ModifySubnetAttribute",
+                "ec2:ReplaceRoute",
+                "ec2:AssociateRouteTable",
+                "ec2:DisassociateRouteTable",
+                "ec2:AttachInternetGateway",
+                "ec2:DetachInternetGateway",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:RevokeSecurityGroupEgress"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/Name": "rthk-k8s*"
+                }
+            }
+        },
+        {
+            "Sid": "VPCEndpointManagement",
             "Effect": "Allow",
             "Action": [
                 "ec2:CreateVpcEndpoint",
@@ -51,16 +52,7 @@
                 "ec2:ModifyVpcEndpointServiceConfiguration",
                 "ec2:ModifyVpcEndpointServicePermissions"
             ],
-            "Resource": "*",
-            "Condition": {
-                "StringEquals": {
-                    "aws:RequestedRegion": [
-                        "us-west-2",
-                        "us-east-1", 
-                        "ap-southeast-1"
-                    ]
-                }
-            }
-		}    
-	]
+            "Resource": "*"
+        }
+    ]
 }
